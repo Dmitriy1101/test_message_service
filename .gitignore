@@ -1,0 +1,5 @@
+.proj_venv
+**/__pycache__
+.env
+.pylintrc
+celerybeat-schedule
