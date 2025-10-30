@@ -31,6 +31,9 @@ INSTALLED_APPS = [
     "rest_framework",
     "django_filters",
     "rest_framework.authtoken",
+    # apps
+    "users",
+    "notification",
 ]
 
 MIDDLEWARE = [
@@ -105,6 +108,7 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = "static/"
+STATIC_ROOT = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -135,6 +139,7 @@ REST_FRAMEWORK = {
 
 LOGGING = {
     "version": 1,
+    "disable_existing_loggers": False, 
     "handlers": {
         "console": {
             "class": "logging.StreamHandler",
@@ -145,6 +150,7 @@ LOGGING = {
         "django.db.backends": {
             "handlers": ["console"],
             "level": "DEBUG" if os.environ.get("DEBUG") == "True" else "WARNING",
+            "propagate": False, 
         },
         "django.request": {
             "handlers": ["console"],
@@ -164,6 +170,14 @@ CELERY_RESULT_BACKEND = "redis://redis:6379/1"
 CELERY_CACHE_BACKEND = "default"
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 
+EMAIL_HOST = os.environ.get("EMAIL_HOST")
+EMAIL_PORT = os.environ.get("EMAIL_PORT", "465")
+EMAIL_USE_TLS: bool = os.environ.get("EMAIL_USE_TLS", "false").lower() == "true"
+EMAIL_USE_SSL: bool = os.environ.get("EMAIL_USE_SSL", "true").lower() == "true"
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
+
 SPECTACULAR_SETTINGS = {
     "TITLE": "Messanger API",
     "DESCRIPTION": "test api messanger",
@@ -172,5 +186,5 @@ SPECTACULAR_SETTINGS = {
     "SWAGGER_UI_DIST": "SIDECAR",
     "SWAGGER_UI_FAVICON_HREF": "SIDECAR",
     "REDOC_DIST": "SIDECAR",
-    "SERVE_PERMISSIONS": ["rest_framework.permissions.AllowAny"],  # AllowAny
+    "SERVE_PERMISSIONS": ["rest_framework.permissions.AllowAny"],
 }

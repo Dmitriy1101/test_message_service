@@ -13,6 +13,8 @@ COPY core /core
 
 WORKDIR /core
 
+RUN python manage.py collectstatic
+
 USER root
 
 RUN adduser --disabled-password server-user

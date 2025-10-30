@@ -8,9 +8,9 @@ x-common: &base_image
   restart: always
 
 services:
-  server:
+  web-app:
     <<: *base_image
-    container_name: server
+    container_name: web-app
     ports:
       - "8000:8000"
     networks:
