@@ -22,21 +22,9 @@ app.conf.broker_url = settings.CELERY_BROKER_URL
 app.autodiscover_tasks()
 
 
-
-
-
-@app.task(name="timer")
-def message_keeper():
-    """
-    Тестовая задача выводит время.
-    """
-
-    log.info("Celery работает: %s", datetime.now())
-
-
-# app.conf.beat_schedule = {
-#     "be-ready": {
-#         "task": "timer",
-#         "schedule": crontab(),
-#     },
-# }
+app.conf.beat_schedule = {
+    "be-ready": {
+        "task": "notification_check",
+        "schedule": crontab(minute="*/10"),
+    },
+}

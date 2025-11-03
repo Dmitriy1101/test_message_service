@@ -162,6 +162,11 @@ LOGGING = {
             "level": "INFO",
             "propagate": False,
         },
+        "notification": {
+            "handlers": ["console"],
+            "level": "DEBUG" if os.environ.get("DEBUG") == "True" else "WARNING",
+            "propagate": False,
+        },
     },
 }
 

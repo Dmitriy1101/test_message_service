@@ -3,9 +3,10 @@ from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
-from django.core.exceptions import ValidationError
 from rest_framework.response import Response
+from django.core.exceptions import ValidationError
 from .serializers import MassNotificationCreateSerializer
+from .tasks import notification_immediately
 from logging import Logger, getLogger
 
 log: Logger = getLogger(__name__)
@@ -67,12 +68,14 @@ class NotificationView(APIView):
             request_data: dict = request.data.copy()
             serializer = MassNotificationCreateSerializer(data=request_data)
             if serializer.is_valid():
-                serializer.save(created_by=request.user)
+                inst = serializer.save(created_by=request.user)
                 log.info(
                     "User ID: %s create notification ID: %s",
                     request.user.id,
-                    serializer,
+                    inst.id,
                 )
+                if inst.immediately:
+                    notification_immediately.delay_on_commit(inst.id)
                 return Response(status=status.HTTP_204_NO_CONTENT)
             log.debug(
                 "User ID: %s invalid POST request data: %s",
