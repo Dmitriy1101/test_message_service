@@ -306,11 +306,11 @@ class NotificationManager:
             ]
             if not avalibale_senders:
                 return False
-            elif user.contact.telegramm and "telegram" not in avalibale_senders:
+            elif user.contact.telegramm and "telegram" in avalibale_senders:
                 return True
-            elif user.contact.email and "email" not in avalibale_senders:
+            elif user.contact.email and "email" in avalibale_senders:
                 return True
-            elif user.contact.phone and "sms" not in avalibale_senders:
+            elif user.contact.phone and "sms" in avalibale_senders:
                 return True
             return False
 
