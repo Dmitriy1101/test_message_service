@@ -332,6 +332,7 @@ class NotificationManager:
 
         Args:
             by_func: Функция-фильтр, принимающая UserDelivery и возвращающая bool
+                те значения, для которых функция вернет False будут отфильтрованы.
             data: Данные рассылки для фильтрации
 
         Returns:

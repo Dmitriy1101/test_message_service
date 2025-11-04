@@ -1,15 +1,3 @@
-"""
-Протоколы (интерфейсы) для сервисов отправки уведомлений.
-
-Определяет контракты, которые должны реализовывать все отправители уведомлений
-для обеспечения совместимости в системе.
-
-Protocols (interfaces) for notification sending services.
-
-Defines contracts that all notification senders must implement
-to ensure compatibility within the system.
-"""
-
 from typing import Protocol
 from .dataclass import UserDelivery
 

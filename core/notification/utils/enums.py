@@ -1,15 +1,3 @@
-"""
-Перечисления для системы уведомлений.
-
-Содержит типизированные константы для идентификации мессенджеров
-и других перечисляемых значений в системе.
-
-Enumerations for notification system.
-
-Contains typed constants for messenger identification
-and other enumerated values within the system.
-"""
-
 from enum import Enum
 
 

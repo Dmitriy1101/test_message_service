@@ -1,5 +1,7 @@
 from notification.utils.dataclass import UserDelivery
 from notification.utils.sender.abc import SenderABC
+from django.core.mail import EmailMessage
+from django.conf import settings
 
 
 class EmailSender(SenderABC):
@@ -7,7 +9,14 @@ class EmailSender(SenderABC):
 
     def _send(self, subject: str, message: str, contacts: list[str]) -> list[str]:
         """Посылает уведомление через сторонний сервис"""
-        return contacts
+        email_msg = EmailMessage(
+            subject=subject,
+            body=message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            bcc=contacts,
+        )
+        if email_msg.send():
+            return contacts
 
     def set_status(
         self, sucsess: list[str], users: list[UserDelivery]
