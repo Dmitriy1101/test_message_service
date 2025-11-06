@@ -23,8 +23,12 @@ app.autodiscover_tasks()
 
 
 app.conf.beat_schedule = {
-    "be-ready": {
+    "notification-run": {
         "task": "notification_check",
         "schedule": crontab(minute="*/10"),
+    },
+    'telegram-ids': {
+        'task': 'telegran_contacts_search',
+        'schedule': crontab(hour="*/1"),
     },
 }

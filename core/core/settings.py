@@ -139,7 +139,7 @@ REST_FRAMEWORK = {
 
 LOGGING = {
     "version": 1,
-    "disable_existing_loggers": False, 
+    "disable_existing_loggers": False,
     "handlers": {
         "console": {
             "class": "logging.StreamHandler",
@@ -150,7 +150,7 @@ LOGGING = {
         "django.db.backends": {
             "handlers": ["console"],
             "level": "DEBUG" if os.environ.get("DEBUG") == "True" else "WARNING",
-            "propagate": False, 
+            "propagate": False,
         },
         "django.request": {
             "handlers": ["console"],
@@ -184,6 +184,7 @@ EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
+TELEGRAM_BOT_GROUP_ID = os.environ.get("TELEGRAM_BOT_GROUP_ID")
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "Messanger API",
