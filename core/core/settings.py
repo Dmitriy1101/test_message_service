@@ -139,7 +139,7 @@ REST_FRAMEWORK = {
 
 LOGGING = {
     "version": 1,
-    "disable_existing_loggers": False, 
+    "disable_existing_loggers": False,
     "handlers": {
         "console": {
             "class": "logging.StreamHandler",
@@ -150,7 +150,7 @@ LOGGING = {
         "django.db.backends": {
             "handlers": ["console"],
             "level": "DEBUG" if os.environ.get("DEBUG") == "True" else "WARNING",
-            "propagate": False, 
+            "propagate": False,
         },
         "django.request": {
             "handlers": ["console"],

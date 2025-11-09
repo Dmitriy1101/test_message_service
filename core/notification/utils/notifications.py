@@ -13,22 +13,24 @@ and delivery status tracking.
 """
 
 from datetime import datetime
+from logging import Logger, getLogger
 from typing import Callable, Literal
-from notification.utils.dataclass import UserDelivery
-from notification.models import MassNotification, NotificationRecipient
-from django.db.models import QuerySet, Prefetch, Q
-from django.utils import timezone
+
 from django.db import transaction
-from .sender import EmailSender, SmsSender, TelegramSender
+from django.db.models import Prefetch, Q, QuerySet
+from django.utils import timezone
+from notification.models import MassNotification, NotificationRecipient
+from notification.utils.dataclass import UserDelivery
+
 from .dataclass import (
+    NotificationRecipientUpdate,
+    NotificationUsers,
     UserContact,
     UserDelivery,
-    NotificationUsers,
-    NotificationRecipientUpdate,
 )
-from logging import Logger, getLogger
 from .enums import Messengers
 from .protocol import Sender
+from .sender import EmailSender, SmsSender, TelegramSender
 
 log: Logger = getLogger(__name__)
 
@@ -131,12 +133,16 @@ class NotificationManager:
                     id=state.user.id,
                     contact=UserContact(
                         email=state.user.email,
-                        telegramm=state.user.contact.telegram_profile
-                        if hasattr(state.user, "contact")
-                        else None,
-                        phone=state.user.contact.phone_number
-                        if hasattr(state.user, "contact")
-                        else None,
+                        telegramm=(
+                            state.user.contact.telegram_profile
+                            if hasattr(state.user, "contact")
+                            else None
+                        ),
+                        phone=(
+                            state.user.contact.phone_number
+                            if hasattr(state.user, "contact")
+                            else None
+                        ),
                     ),
                 )
                 for state in notification.pending_recipients
@@ -358,9 +364,11 @@ class NotificationManager:
         """
 
         MassNotification.objects.filter(id=data.id).update(
-            status=MassNotification.Status.COMPLETED
-            if not data.users
-            else MassNotification.Status.FAILED,
+            status=(
+                MassNotification.Status.COMPLETED
+                if not data.users
+                else MassNotification.Status.FAILED
+            ),
             immediately=False,
         )
 

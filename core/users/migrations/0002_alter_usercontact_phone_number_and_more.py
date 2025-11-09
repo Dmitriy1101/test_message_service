@@ -6,18 +6,31 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0001_initial'),
+        ("users", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='usercontact',
-            name='phone_number',
-            field=models.CharField(blank=True, help_text='Формат: +79991234567 или 89991234567', max_length=20, null=True, unique=True, verbose_name='Номер телефона'),
+            model_name="usercontact",
+            name="phone_number",
+            field=models.CharField(
+                blank=True,
+                help_text="Формат: +79991234567 или 89991234567",
+                max_length=20,
+                null=True,
+                unique=True,
+                verbose_name="Номер телефона",
+            ),
         ),
         migrations.AlterField(
-            model_name='usercontact',
-            name='telegram_profile',
-            field=models.URLField(blank=True, help_text='Ссылка на профиль Telegram (https://t.me/username)', null=True, unique=True, verbose_name='Профиль Telegram'),
+            model_name="usercontact",
+            name="telegram_profile",
+            field=models.URLField(
+                blank=True,
+                help_text="Ссылка на профиль Telegram (https://t.me/username)",
+                null=True,
+                unique=True,
+                verbose_name="Профиль Telegram",
+            ),
         ),
     ]
