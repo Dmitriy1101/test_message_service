@@ -6,13 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('notification', '0001_initial'),
+        ("notification", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='massnotification',
-            name='priority_order',
-            field=models.JSONField(default=['email', 'telegram', 'sms'], help_text='Порядок каналов отправки в формате JSON массива', verbose_name='Порядок приоритета каналов'),
+            model_name="massnotification",
+            name="priority_order",
+            field=models.JSONField(
+                default=["email", "telegram", "sms"],
+                help_text="Порядок каналов отправки в формате JSON массива",
+                verbose_name="Порядок приоритета каналов",
+            ),
         ),
     ]

@@ -1,12 +1,13 @@
 import asyncio
 import json
 from typing import Literal
+
+from django.conf import settings
+from django.core.cache import cache
 from notification.utils.dataclass import UserDelivery
 from notification.utils.sender.abc import SenderABC
 from telegram import Bot, User
 from telegram.error import TelegramError
-from django.conf import settings
-from django.core.cache import cache
 
 
 class TelegramSender(SenderABC):

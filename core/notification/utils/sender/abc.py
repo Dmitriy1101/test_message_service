@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+
 from notification.utils.dataclass import UserDelivery
 
 

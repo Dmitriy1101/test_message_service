@@ -1,7 +1,7 @@
+from django.conf import settings
+from django.core.mail import EmailMessage
 from notification.utils.dataclass import UserDelivery
 from notification.utils.sender.abc import SenderABC
-from django.core.mail import EmailMessage
-from django.conf import settings
 
 
 class EmailSender(SenderABC):
@@ -79,11 +79,11 @@ class EmailSender(SenderABC):
     ) -> list[UserDelivery]:
         """
         Обновляет статусы доставки email-уведомлений для пользователей.
-        
+
         Сравнивает email-адреса пользователей со списком успешно отправленных
         адресов и обновляет флаги доставки. Только пользователи с email-адресами,
         присутствующими в списке успешных отправок, помечаются как доставленные.
-        
+
         Args:
             sucsess (list[str]): Список email-адресов, на которые уведомление
                                 было успешно отправлено. Должен содержать
@@ -91,13 +91,13 @@ class EmailSender(SenderABC):
                                 что и в контактах пользователей.
             users (list[UserDelivery]): Исходный список пользователей для
                                        обновления статусов доставки.
-        
+
         Returns:
             list[UserDelivery]: Обновленный список пользователей, где:
                                - delivered=True для пользователей с email,
                                  присутствующим в списке success
                                - delivered=False для всех остальных пользователей
-        
+
         """
         for user in users:
             if user.contact.email in sucsess:
@@ -107,20 +107,20 @@ class EmailSender(SenderABC):
     def _get_contact(self, users: list[UserDelivery]) -> list[str]:
         """
         Извлекает email-адреса из списка пользователей.
-        
+
         Фильтрует пользователей, оставляя только тех, у кого указан email-адрес,
         и возвращает список этих адресов. Пользователи без email или с пустым
         email-адресом исключаются из результата.
-        
+
         Args:
             users (list[UserDelivery]): Список пользователей с контактной информацией.
                                        Каждый пользователь должен иметь атрибут
                                        contact с полем email.
-        
+
         Returns:
             list[str]: Список валидных email-адресов пользователей. Список может
                       быть пустым, если ни у одного пользователя нет email-адреса.
-        
+
         """
 
         return [user.contact.email for user in users if user.contact.email]

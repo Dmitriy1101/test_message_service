@@ -15,17 +15,49 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='UserContact',
+            name="UserContact",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('phone_number', models.CharField(blank=True, help_text='Формат: +79991234567 или 89991234567', max_length=20, null=True, verbose_name='Номер телефона')),
-                ('telegram_profile', models.URLField(blank=True, help_text='Ссылка на профиль Telegram (https://t.me/username)', null=True, verbose_name='Профиль Telegram')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='contact', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "phone_number",
+                    models.CharField(
+                        blank=True,
+                        help_text="Формат: +79991234567 или 89991234567",
+                        max_length=20,
+                        null=True,
+                        verbose_name="Номер телефона",
+                    ),
+                ),
+                (
+                    "telegram_profile",
+                    models.URLField(
+                        blank=True,
+                        help_text="Ссылка на профиль Telegram (https://t.me/username)",
+                        null=True,
+                        verbose_name="Профиль Telegram",
+                    ),
+                ),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="contact",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Контакт пользователя',
-                'verbose_name_plural': 'Контакты пользователей',
-                'db_table': 'user_contacts',
+                "verbose_name": "Контакт пользователя",
+                "verbose_name_plural": "Контакты пользователей",
+                "db_table": "user_contacts",
             },
         ),
     ]

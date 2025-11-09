@@ -23,3 +23,6 @@ DEFAULT_FROM_EMAIL='почта отправителя'
  - Примени миграции `docker compose run --rm web-app sh -c "python manage.py migrate"`
  - После запуска не забудь создать суперпользователя для админки: `docker compose run --rm web-app sh -c "python manage.py createsuperuser"`
 
+### Запуск тесов:
+ - `python -m dotenv run -- pytest`
+ 

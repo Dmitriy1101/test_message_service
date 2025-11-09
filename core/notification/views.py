@@ -1,13 +1,15 @@
-from rest_framework.request import Request
-from rest_framework.views import APIView
-from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.response import Response
+from logging import Logger, getLogger
+
 from django.core.exceptions import ValidationError
+from rest_framework import status
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.request import Request
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 from .serializers import MassNotificationCreateSerializer
 from .tasks import notification_immediately
-from logging import Logger, getLogger
 
 log: Logger = getLogger(__name__)
 

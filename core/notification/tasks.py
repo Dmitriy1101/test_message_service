@@ -1,8 +1,10 @@
 import asyncio
+
 from celery import shared_task
-from .utils.sender.telegram import TelegramSender
-from .utils.notifications import NotificationManager
 from django.contrib.auth import get_user_model
+
+from .utils.notifications import NotificationManager
+from .utils.sender.telegram import TelegramSender
 
 User = get_user_model()
 

@@ -1,6 +1,6 @@
-from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.validators import MinLengthValidator
+from django.db import models
 
 User = get_user_model()
 
@@ -139,10 +139,10 @@ class MassNotification(models.Model):
 class NotificationRecipient(models.Model):
     """
     Промежуточная модель для связи рассылки с пользователями.
-    
+
     Хранит индивидуальный статус отправки и информацию о доставке
     для каждого пользователя в рамках массовой рассылки.
-    
+
     Attributes:
         notification (ForeignKey): Ссылка на родительскую рассылку
         user (ForeignKey): Пользователь-получатель рассылки
@@ -150,7 +150,7 @@ class NotificationRecipient(models.Model):
         delivered_via (CharField): Канал, через который было отправлено уведомление
         error_message (TextField): Описание ошибки при неудачной отправке
         sent_at (DateTimeField): Время фактической отправки уведомления
-    
+
     Examples:
         >>> recipient = NotificationRecipient.objects.create(
         ...     notification=notification,
