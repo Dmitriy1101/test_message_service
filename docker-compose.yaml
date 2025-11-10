@@ -11,6 +11,8 @@ services:
   web-app:
     <<: *base_image
     container_name: web-app
+    volumes:
+      - ./core/static:/static
     ports:
       - "8000:8000"
     networks:
