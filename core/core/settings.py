@@ -29,6 +29,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "django_filters",
     "rest_framework.authtoken",
+    "drf_spectacular",
+    "drf_spectacular_sidecar",
     # apps
     "users",
     "notification",
@@ -185,8 +187,8 @@ TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "Messanger API",
-    "DESCRIPTION": "test api messanger",
-    "VERSION": "0.0.1",
+    "DESCRIPTION": "test-message-service",
+    "VERSION": "0.1.0",
     "SERVE_INCLUDE_SCHEMA": False,
     "SWAGGER_UI_DIST": "SIDECAR",
     "SWAGGER_UI_FAVICON_HREF": "SIDECAR",
