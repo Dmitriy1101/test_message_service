@@ -1,0 +1,80 @@
+x-common: &base_image
+  build:
+    context: .
+  env_file:
+    - .env
+  volumes:
+    - ./core:/core
+  restart: always
+
+services:
+  web-app:
+    <<: *base_image
+    container_name: web-app
+    volumes:
+      - ./core/static:/static
+    ports:
+      - "8000:8000"
+    networks:
+      - redis
+    command:
+      [
+        "gunicorn",
+        "--workers=3",
+        "core.wsgi:application",
+        "--bind",
+        "0.0.0.0:8000"
+      ]
+
+  worker:
+    <<: *base_image
+    container_name: worker
+    command:
+      [
+        "celery",
+        "-A",
+        "celery_app.app",
+        "worker",
+        "--loglevel=info"
+      ]
+    networks:
+      - redis
+
+  beat:
+    <<: *base_image
+    container_name: beat
+    depends_on:
+      - worker
+    command:
+      [
+        "celery",
+        "-A",
+        "celery_app.app",
+        "beat",
+        "--loglevel=info",
+        "--max-interval",
+        "60"
+      ]
+    networks:
+      - redis
+
+  flower:
+    <<: *base_image
+    container_name: flower
+    command: [ "celery", "-A", "celery_app.app", "flower" ]
+    ports:
+      - "5555:5555"
+    networks:
+      - redis
+
+  redis:
+    image: redis:8.0-M02-alpine
+    container_name: redis
+    hostname: redis
+    restart: always
+    networks:
+      - redis
+
+networks:
+  redis:
+    name: redis
