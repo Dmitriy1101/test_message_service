@@ -331,6 +331,7 @@ class NotificationManager:
                 error_message=error,
             ),
         )
+        return data
 
     def _filter_by(self, by_func: Callable, data: NotificationUsers) -> list[int]:
         """
@@ -370,6 +371,7 @@ class NotificationManager:
                 else MassNotification.Status.FAILED
             ),
             immediately=False,
+            completed_at=timezone.now(),
         )
 
     def send(self):

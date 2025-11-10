@@ -6,3 +6,4 @@ celerybeat-schedule
 **/**.ipynb
 core/static/admin
 core/static/rest_framework
+.coverage

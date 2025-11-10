@@ -133,7 +133,9 @@ class TelegramSender(SenderABC):
         successful: list[str] = []
         err: TelegramError = None
         for user in contacts:
-            username = user.replace("https://t.me/", "").replace("@", "")
+            username = (
+                user.replace("https://t.me/", "").replace("@", "").replace(" ", "")
+            )
             user_id: str | None = cache_contact.get(username)
             if not user_id:
                 continue
@@ -168,8 +170,10 @@ class TelegramSender(SenderABC):
             if u.my_chat_member:
                 f_user: User = u.my_chat_member.from_user
                 data[f_user.username] = str(f_user.id)
-                if hasattr(u.my_chat_member, "new_chat_member") and (
-                    not u.my_chat_member.new_chat_member.user.is_bot
+                if (
+                    hasattr(u.my_chat_member, "new_chat_member")
+                    and u.my_chat_member.new_chat_member is not None
+                    and (not u.my_chat_member.new_chat_member.user.is_bot)
                 ):
                     n_user: User = u.my_chat_member.new_chat_member.user
                     data[n_user.username] = str(n_user.id)

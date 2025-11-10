@@ -1,11 +1,12 @@
 from logging import Logger, getLogger
 
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError as DjangoValidationError
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework.serializers import ValidationError as DRFValidationError
 from rest_framework.views import APIView
 
 from .serializers import MassNotificationCreateSerializer
@@ -86,7 +87,7 @@ class NotificationView(APIView):
             )
             print(serializer.data)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        except ValidationError as e:
+        except (DjangoValidationError, DRFValidationError) as e:
             log.exception(
                 "Validation error", extra={"error": e, "request_data": request_data}
             )
